@@ -299,7 +299,7 @@ float QuadControl::AltitudeControl(float posZCmd, float velZCmd, float posZ, flo
 }
 
 // returns a desired acceleration in global frame
-V3F QuadControl::LateralPositionControl(V3F posCmd, V3F velCmd, V3F pos, V3F vel, V3F accelCmd)
+V3F QuadControl::LateralPositionControl(V3F posCmd, V3F velCmd, V3F pos, V3F vel, V3F accelCmdFF)
 {
   // Calculate a desired horizontal acceleration based on 
   //  desired lateral position/velocity/acceleration and current pose
@@ -308,20 +308,24 @@ V3F QuadControl::LateralPositionControl(V3F posCmd, V3F velCmd, V3F pos, V3F vel
   //   velCmd: desired velocity, in NED [m/s]
   //   pos: current position, NED [m]
   //   vel: current velocity, NED [m/s]
-  //   accelCmd: desired acceleration, NED [m/s2]
+  //   accelCmdFF: feed-forward acceleration, NED [m/s2]
   // OUTPUT:
   //   return a V3F with desired horizontal accelerations. 
   //     the Z component should be 0
   // HINTS: 
-  //  - use fmodf(foo,b) to constrain float foo to range [0,b]
   //  - use the gain parameters kpPosXY and kpVelXY
-  //  - make sure you cap the horizontal velocity and acceleration
+  //  - make sure you limit the maximum horizontal velocity and acceleration
   //    to maxSpeedXY and maxAccelXY
 
   // make sure we don't have any incoming z-component
-  accelCmd.z = 0;
+  accelCmdFF.z = 0;
   velCmd.z = 0;
   posCmd.z = pos.z;
+
+  // we initialize the returned desired acceleration to the feed-forward value.
+  // Make sure to _add_, not simply replace, the result of your controller
+  // to this variable
+  V3F accelCmd = accelCmdFF;
 
   ////////////////////////////// BEGIN STUDENT CODE ///////////////////////////
 
@@ -356,7 +360,7 @@ float QuadControl::YawControl(float yawCmd, float yaw)
   // OUTPUT:
   //   return a desired yaw rate [rad/s]
   // HINTS: 
-  //  - use fmodf(foo,b) to constrain float foo to range [0,b]
+  //  - use fmodf(foo,b) to unwrap a radian angle measure float foo to range [0,b]. 
   //  - use the yaw control gain parameter kpYaw
 
   float yawRateCmd=0;
