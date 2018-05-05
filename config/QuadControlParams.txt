@@ -9,34 +9,55 @@
 UseIdealEstimator=1
 
 # Physical properties
-Mass = 0.4
+Mass = 0.485
 L = 0.17
 Ixx = 0.0023
 Iyy = 0.0023
 Izz = 0.0046
 kappa = 0.016
 minMotorThrust = .1
-maxMotorThrust = 4.5
+maxMotorThrust = 4.5      # 10
 
 # Position control gains
-kpPosXY = 1
-kpPosZ = 1
-KiPosZ = 20
+kpPosXY = 30.1
+                            # 30.1 26.1 26.1 30.1 34.7
+kpPosZ  = 22.0
+                            # 22.0 24 32
+KiPosZ  = 19.0
+                            # 19.0 18 19
 
 # Velocity control gains
-kpVelXY = 4
-kpVelZ = 4
+kpVelXY = 11.3
+                            # 11.3 10.4 10.4 12.4 14.4
+kpVelZ  = 6.0
+                            # 6.0 5.9 8
 
 # Angle control gains
-kpBank = 5
-kpYaw = 1
+kpBank  = 11.4
+                            # 11.4 11.5 10.8 10.5
+kpYaw   = 2.9
+                            # 2.9 2.9
 
 # Angle rate gains
-kpPQR = 23, 23, 5
+kpPQR  = 37,37,19.7
+                            # 37,37,19.7 41,41,23.3 80,80,1.3
 
 # limits
-maxAscentRate = 5
-maxDescentRate = 2
-maxSpeedXY = 5
-maxHorizAccel = 12
-maxTiltAngle = .7
+maxAscentRate = 5       # 5
+maxDescentRate = 2      # 2
+maxSpeedXY = 5          # 5
+maxHorizAccel = 12      # 12
+maxTiltAngle = .7       # .7
+
+# self.k_p_p = 27.0 # 27
+# self.k_p_q = 27.0 # 27
+# self.k_p_r = 10.0
+# self.z_k_p = 40.0 # 400.0
+# self.z_k_d = 15.0 # 40.0
+# self.x_k_p = 0.965 # 0.965
+# self.x_k_d = 4.5 # 4.5
+# self.y_k_p = 0.965
+# self.y_k_d = 4.5
+# self.k_p_roll = 4.0 # 4.0
+# self.k_p_pitch = 4.0 # 4.0
+# self.k_p_yaw = 5.0
